@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 class ThemeColors {
@@ -9,12 +7,12 @@ class ThemeColors {
   final Color textColor;
   final Color subTextColor;
   final Color buttonTxtColor;
-  final Color buttonColor;
+  // final Color buttonColor;
   // final Color paymentButtonColor;
   // final Color buttonGradientColor;
-  // final Color buttonDisableColor;
-  // final Color hintColor;
-  // final Color bgTextFieldColor;
+  final Color buttonDisableColor;
+  final Color hintColor;
+  final Color bgTextFieldColor;
   // final Color borderColor;
   // final Color disableColor;
   // final Color dropDownTextColor;
@@ -27,12 +25,12 @@ class ThemeColors {
     required this.textColor,
     required this.subTextColor,
     required this.buttonTxtColor,
-    required this.buttonColor,
+    // required this.buttonColor,
     // required this.paymentButtonColor,
     // required this.buttonGradientColor,
-    // required this.buttonDisableColor,
-    // required this.hintColor,
-    // required this.bgTextFieldColor,
+    required this.buttonDisableColor,
+    required this.hintColor,
+    required this.bgTextFieldColor,
     // required this.borderColor,
     // required this.disableColor,
     // required this.dropDownTextColor,
@@ -45,14 +43,14 @@ class ThemeColors {
       secondary: const Color(0xFF000000),
       background: const Color(0xFFFFFFFF),
       textColor: const Color(0xFF000000),
-      subTextColor: const Color(0xFFE0E0E0),
+      subTextColor: const Color(0xFF6C6B6A),
       buttonTxtColor: const Color(0xFFFFFFFF),
-      buttonColor: const Color(0xFFFF5726),
+      // buttonColor: const Color(0xFFFF5726),
       // paymentButtonColor: const Color(0xFF4D5DFA),
       // buttonGradientColor: const Color(0xFFFF7A53),
-      // buttonDisableColor: const Color(0xFFFF7A53),
-      // hintColor: const Color(0xFF9E9E9E),
-      // bgTextFieldColor: const Color(0xFFFAFAFA),
+      buttonDisableColor: const Color(0xFFFF9999),
+      hintColor: const Color(0xFF6C6B6A),
+      bgTextFieldColor: const Color(0xFFF0F0F0),
       // borderColor: const Color(0xFFEEEEEE),
       // disableColor: const Color(0xFF6D79EA),
       // dropDownTextColor: const Color(0xFF2D2D3C),
@@ -68,12 +66,12 @@ class ThemeColors {
       textColor: const Color(0xFFFFFFFF),
       subTextColor: const Color(0xFFE0E0E0),
       buttonTxtColor: const Color(0xFFFFFFFF),
-      buttonColor: const Color(0xFF4D5DFA),
+      // buttonColor: const Color(0xFF4D5DFA),
       // paymentButtonColor: const Color(0xFFFF5726),
       // buttonGradientColor: const Color(0xFF7784FF),
-      // buttonDisableColor: const Color(0xFF6D79EA),
-      // hintColor: const Color(0xFF9E9E9E),
-      // bgTextFieldColor: const Color(0xFF1F222A),
+      buttonDisableColor: const Color(0xFFFF9999),
+      hintColor: const Color(0xFF6C6B6A),
+      bgTextFieldColor: const Color(0xFF404040),
       // borderColor: const Color(0xFF35383F),
       // disableColor: const Color(0xFF6D79EA),
       // dropDownTextColor: const Color(0xFFBDBDBD),
