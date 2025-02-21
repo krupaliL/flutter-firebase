@@ -19,9 +19,11 @@ class SignUpScreen extends HookConsumerWidget {
     final lastNameController = useTextEditingController();
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
-    // FocusNode textFieldEmail = useFocusNode();
-    // FocusNode textFieldPassword = useFocusNode();
-    final isButtonEnable = useState(true);
+    FocusNode textFieldFirstName = useFocusNode();
+    FocusNode textFieldLastName = useFocusNode();
+    FocusNode textFieldEmail = useFocusNode();
+    FocusNode textFieldPassword = useFocusNode();
+    final isButtonEnable = useState(false);
 
     bool isEmailValid(String email) {
       final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+$');
@@ -34,7 +36,8 @@ class SignUpScreen extends HookConsumerWidget {
     }
 
     void updateButtonState() {
-      isButtonEnable.value = firstNameController.text.isNotEmpty &&
+      isButtonEnable.value =
+          firstNameController.text.isNotEmpty &&
           lastNameController.text.isNotEmpty &&
           isEmailValid(emailController.text) &&
           isPasswordValid(passwordController.text);
@@ -80,8 +83,10 @@ class SignUpScreen extends HookConsumerWidget {
                   ),
                   SizedBox(height: 25.h),
                   PrimaryAuthTextField(
+                    focusNode: textFieldFirstName,
                     textEditingController: firstNameController,
                     hintText: "First Name",
+                    onFieldSubmitted: (_) => textFieldLastName.requestFocus(),
                     prefixIcon: "assets/icons/ic_profile.svg",
                     textInputType: TextInputType.name,
                     textInputAction: TextInputAction.next,
@@ -91,8 +96,10 @@ class SignUpScreen extends HookConsumerWidget {
                   ),
                   SizedBox(height: 20.h),
                   PrimaryAuthTextField(
+                    focusNode: textFieldLastName,
                     textEditingController: lastNameController,
                     hintText: "Last Name",
+                    onFieldSubmitted: (_) => textFieldEmail.requestFocus(),
                     prefixIcon: "assets/icons/ic_profile.svg",
                     textInputType: TextInputType.name,
                     textInputAction: TextInputAction.next,
@@ -102,8 +109,10 @@ class SignUpScreen extends HookConsumerWidget {
                   ),
                   SizedBox(height: 20.h),
                   PrimaryAuthTextField(
+                    focusNode: textFieldEmail,
                     textEditingController: emailController,
                     hintText: "Email",
+                    onFieldSubmitted: (_) => textFieldPassword.requestFocus(),
                     prefixIcon: "assets/icons/ic_email.svg",
                     textInputType: TextInputType.emailAddress,
                     textInputAction: TextInputAction.next,
@@ -113,12 +122,14 @@ class SignUpScreen extends HookConsumerWidget {
                   ),
                   SizedBox(height: 20.h),
                   PrimaryAuthTextField(
+                    focusNode: textFieldPassword,
                     isPassword: true,
                     textEditingController: passwordController,
                     hintText: "Password",
                     prefixIcon: "assets/icons/ic_password.svg",
+                    onFieldSubmitted: (val) => FocusManager.instance.primaryFocus?.unfocus(),
                     textInputType: TextInputType.visiblePassword,
-                    textInputAction: TextInputAction.newline,
+                    textInputAction: TextInputAction.done,
                     onChange: (val) {
                       updateButtonState();
                     },
@@ -126,7 +137,9 @@ class SignUpScreen extends HookConsumerWidget {
                   SizedBox(height: 50.h),
                   PrimaryButton(
                     onTap: () {
-                      context.pushNamed(AppRoute.addressScreen.name);
+                      if (isButtonEnable.value == true) {
+                        context.pushNamed(AppRoute.addressScreen.name);
+                      }
                     },
                     buttonText: 'Continue',
                     isEnabled: isButtonEnable.value,
