@@ -38,10 +38,13 @@ class PrimaryButton extends HookConsumerWidget {
       onPressed: onTap,
       style: ElevatedButton.styleFrom(
         elevation: 0,
-        shadowColor: null,
+        shadowColor: Colors.transparent,
+
         foregroundColor: colors.buttonTxtColor,
-        // backgroundColor: isEnabled ? bgColor ?? colors.primary : disableColor ?? colors.buttonDisableColor,
-        backgroundColor: colors.primary,
+        backgroundColor: isEnabled
+            ? bgColor ?? colors.primary
+            : disableColor ?? colors.primary.withOpacity(0.4),
+        // backgroundColor: colors.primary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(32.5.r),
         ),

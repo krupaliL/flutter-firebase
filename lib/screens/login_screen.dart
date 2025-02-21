@@ -18,11 +18,28 @@ class LoginScreen extends HookConsumerWidget {
     final colors = ref.watch(themeColorsProvider);
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
-    // FocusNode textFieldEmail = useFocusNode();
-    // FocusNode textFieldPassword = useFocusNode();
+    FocusNode textFieldEmail = useFocusNode();
+    FocusNode textFieldPassword = useFocusNode();
     final isButtonEnable = useState(false);
 
+    bool isEmailValid(String email) {
+      final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+$');
+      return emailRegex.hasMatch(email);
+    }
+
+    // Password validation function
+    bool isPasswordValid(String password) {
+      return password.length >= 6; // Example: Minimum 6 characters
+    }
+
+    void updateButtonState() {
+      isButtonEnable.value = isEmailValid(emailController.text) && isPasswordValid(passwordController.text);
+    }
+
     return Scaffold(
+      // resizeToAvoidBottomInset: true,
+      // extendBody: true,
+      // extendBodyBehindAppBar: true,
       body: SingleChildScrollView(
         physics: const ClampingScrollPhysics(),
         child: SizedBox(
@@ -63,20 +80,30 @@ class LoginScreen extends HookConsumerWidget {
                   ),
                   SizedBox(height: 25.h),
                   PrimaryAuthTextField(
+                    focusNode: textFieldEmail,
                     textEditingController: emailController,
                     hintText: "Email",
+                    onFieldSubmitted: (_) => textFieldPassword.requestFocus(),
                     prefixIcon: "assets/icons/ic_email.svg",
                     textInputType: TextInputType.emailAddress,
                     textInputAction: TextInputAction.next,
+                    onChange: (val) {
+                      updateButtonState();
+                    },
                   ),
                   SizedBox(height: 20.h),
                   PrimaryAuthTextField(
+                    focusNode: textFieldPassword,
                     isPassword: true,
                     textEditingController: passwordController,
                     hintText: "Password",
                     prefixIcon: "assets/icons/ic_password.svg",
+                    onFieldSubmitted: (val) => FocusManager.instance.primaryFocus?.unfocus(),
                     textInputType: TextInputType.visiblePassword,
                     textInputAction: TextInputAction.newline,
+                    onChange: (val) {
+                      updateButtonState();
+                    },
                   ),
                   SizedBox(height: 10.h),
                   InkWell(
