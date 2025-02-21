@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase/routing/app_route.dart';
 import 'package:flutter_firebase/theme/app_theme.dart';
@@ -8,19 +9,15 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await PreferencesUtils.remove(key: PrefKeys.IS_LIGHT_MODE);
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(const MyApp());
 
-  // final isLightMode = await PreferencesUtils.getBool(key: PrefKeys.IS_LIGHT_MODE) ?? true;
   final isLightMode = await PreferencesUtils.getBool(key: PrefKeys.IS_DARK_MODE);
-
-  /*final container = ProviderContainer(overrides: [
-    themesProvider.overrideWith((ref) => ThemesProvider(isDarkMode)),
-  ]);*/
 
   runApp(
     ProviderScope(
       overrides: [
-        // themesProvider.overrideWith((ref) => ThemesProvider(isLightMode)),
         themesProvider.overrideWith((ref) => ThemesProvider(isLightMode)),
       ],
       child: const MyApp(),
